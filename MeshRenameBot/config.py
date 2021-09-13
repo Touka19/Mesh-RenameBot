@@ -39,3 +39,4 @@ except ImportError:
         QUEUE = "/queue"
         MODE = "/mode"
         HELP = "/help"
+        USERS = "/users"
