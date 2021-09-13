@@ -8,6 +8,8 @@ import re
 import logging
 import signal
 import asyncio
+from ..database.support import users_info
+from ..database.sql import add_user, query_msg
 from ..translations.trans import Trans
 from ..maneuvers.ExecutorManager import ExecutorManager
 from ..maneuvers.Rename import RenameManeuver
@@ -17,6 +19,16 @@ from .thumb_manage import handle_set_thumb, handle_get_thumb, handle_clr_thumb
 from .mode_select import upload_mode, mode_callback
 from ..config import Commands
 from ..translations.trans import Trans
+
+#=====================================================================================##
+
+USERS_LIST = """<b>Total:</b>\n\nSubscribers - {}\nBlocked- {}"""
+
+WAIT_MSG = """"<b>Processing ...</b>"""
+
+
+#=====================================================================================##
+
 
 renamelog = logging.getLogger(__name__)
 
@@ -51,6 +63,16 @@ async def start_handler(client: Client, msg: Message) -> None:
     await msg.reply(Trans.START_MSG, quote=True)
 
 
+async def subscribers_count(Client, msg: Message) -> None:
+    id = m.from_user.id
+    if id not in OWNER_ID:
+        return
+    msg = await m.reply_text(WAIT_MSG)
+    messages = await users_info(bot)
+    active = messages[0]
+    blocked = messages[1]
+    await m.delete()
+    await msg.edit(USERS_LIST.format(active, blocked))
 async def rename_handler(client: Client, msg: Message) -> None:
     rep_msg = msg.reply_to_message
         
