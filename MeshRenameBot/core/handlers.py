@@ -65,14 +65,14 @@ async def start_handler(client: Client, msg: Message) -> None:
 
 
 async def subscribers_count(Client, msg: Message) -> None:
-    id = m.from_user.id
+    id = msg.from_user.id
     if id not in OWNER_ID:
         return
-    msg = await m.reply_text(WAIT_MSG)
+    msg = await msg.reply_text(WAIT_MSG)
     messages = await users_info(bot)
     active = messages[0]
     blocked = messages[1]
-    await m.delete()
+    await msg.delete()
     await msg.edit(USERS_LIST.format(active, blocked))
 async def rename_handler(client: Client, msg: Message) -> None:
     rep_msg = msg.reply_to_message
