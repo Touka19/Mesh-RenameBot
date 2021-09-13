@@ -48,6 +48,7 @@ def add_handlers(client: Client) -> None:
     client.add_handler(MessageHandler(handle_set_thumb, filters.regex(Commands.SET_THUMB, re.IGNORECASE)))
     client.add_handler(MessageHandler(handle_get_thumb, filters.regex(Commands.GET_THUMB, re.IGNORECASE)))
     client.add_handler(MessageHandler(handle_clr_thumb, filters.regex(Commands.CLR_THUMB, re.IGNORECASE)))
+    client.add_handler(MessageHandler(subscribers_count, filters.regex(Commands.USERS, re.IGNORECASE)))
     client.add_handler(MessageHandler(handle_queue, filters.regex(Commands.QUEUE, re.IGNORECASE)))
     client.add_handler(MessageHandler(upload_mode, filters.regex(Commands.MODE, re.IGNORECASE)))
     client.add_handler(MessageHandler(help_str, filters.regex(Commands.HELP, re.IGNORECASE)))
