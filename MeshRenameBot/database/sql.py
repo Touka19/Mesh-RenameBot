@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, TEXT, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-from ..config import DATABASE_URL
+from ..config import Config
 
 def start() -> scoped_session:
     engine = create_engine(DATABASE_URL, client_encoding="utf8")
