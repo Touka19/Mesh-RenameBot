@@ -66,7 +66,7 @@ async def start_handler(client: Client, msg: Message) -> None:
 
 async def subscribers_count(Client, msg: Message) -> None:
     id = msg.from_user.id
-    if id not in OWNER_ID:
+    if id not in get_var("OWNER_ID"):
         return
     msg = await msg.reply_text(WAIT_MSG)
     messages = await users_info(bot)
