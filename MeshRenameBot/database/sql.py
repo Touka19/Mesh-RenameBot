@@ -6,9 +6,10 @@ from sqlalchemy import Column, TEXT, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from ..config import Config
+from ..core.get_config import get_var
 
 def start() -> scoped_session:
-    engine = create_engine(DATABASE_URL, client_encoding="utf8")
+    engine = create_engine(get_var("DATABASE_URL"), client_encoding="utf8")
     BASE.metadata.bind = engine
     BASE.metadata.create_all(engine)
     return scoped_session(sessionmaker(bind=engine, autoflush=False))
