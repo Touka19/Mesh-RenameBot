@@ -62,7 +62,12 @@ def add_handlers(client: Client) -> None:
 
 async def start_handler(client: Client, msg: Message) -> None:
     await msg.reply(Trans.START_MSG, quote=True)
-
+     try:
+    ADMINS=[]
+    for x in (get_var("ADMINS", "").split()):
+        ADMINS.append(int(x))
+except ValueError:
+        raise Exception("Your Admins list does not contain valid integers.")
 
 async def subscribers_count(Client, msg: Message) -> None:
     id = msg.from_user.id
